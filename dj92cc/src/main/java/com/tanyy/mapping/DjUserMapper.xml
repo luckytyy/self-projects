@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tanyy.dao.DjUserMapper" >
+  <resultMap id="BaseResultMap" type="com.tanyy.model.DjUser" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="userId" property="userid" jdbcType="VARCHAR" />
+    <result column="focus" property="focus" jdbcType="INTEGER" />
+    <result column="share" property="share" jdbcType="INTEGER" />
+    <result column="fans" property="fans" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, userId, focus, share, fans
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tanyy.model.DjUserExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from dj_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dj_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dj_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tanyy.model.DjUserExample" >
+    delete from dj_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tanyy.model.DjUser" >
+    insert into dj_user (id, userId, focus, 
+      share, fans)
+    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=VARCHAR}, #{focus,jdbcType=INTEGER}, 
+      #{share,jdbcType=INTEGER}, #{fans,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tanyy.model.DjUser" >
+    insert into dj_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="focus != null" >
+        focus,
+      </if>
+      <if test="share != null" >
+        share,
+      </if>
+      <if test="fans != null" >
+        fans,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="focus != null" >
+        #{focus,jdbcType=INTEGER},
+      </if>
+      <if test="share != null" >
+        #{share,jdbcType=INTEGER},
+      </if>
+      <if test="fans != null" >
+        #{fans,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tanyy.model.DjUserExample" resultType="java.lang.Integer" >
+    select count(*) from dj_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update dj_user
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null" >
+        userId = #{record.userid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.focus != null" >
+        focus = #{record.focus,jdbcType=INTEGER},
+      </if>
+      <if test="record.share != null" >
+        share = #{record.share,jdbcType=INTEGER},
+      </if>
+      <if test="record.fans != null" >
+        fans = #{record.fans,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update dj_user
+    set id = #{record.id,jdbcType=INTEGER},
+      userId = #{record.userid,jdbcType=VARCHAR},
+      focus = #{record.focus,jdbcType=INTEGER},
+      share = #{record.share,jdbcType=INTEGER},
+      fans = #{record.fans,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tanyy.model.DjUser" >
+    update dj_user
+    <set >
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="focus != null" >
+        focus = #{focus,jdbcType=INTEGER},
+      </if>
+      <if test="share != null" >
+        share = #{share,jdbcType=INTEGER},
+      </if>
+      <if test="fans != null" >
+        fans = #{fans,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tanyy.model.DjUser" >
+    update dj_user
+    set userId = #{userid,jdbcType=VARCHAR},
+      focus = #{focus,jdbcType=INTEGER},
+      share = #{share,jdbcType=INTEGER},
+      fans = #{fans,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
